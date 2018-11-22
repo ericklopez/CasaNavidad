@@ -1,0 +1,31 @@
+﻿cl : Línea de comandos warning D9035: La opción 'Zc:forScope-' está desusada y se quitará en próximas versiones
+  casa.cpp
+c:\users\emlv_\documents\casanavidad\casanavidad\casa.cpp(106): warning C4311: 'conversión de tipo': truncamiento de puntero de 'void *' a 'int'
+c:\users\emlv_\documents\casanavidad\casanavidad\casa.cpp(106): warning C4302: 'conversión de tipo': truncamiento de 'void *' a 'int'
+  texture.cpp
+c:\users\emlv_\documents\casanavidad\casanavidad\texture.cpp(94): warning C4267: '=': conversión de 'size_t' a 'unsigned long'; posible pérdida de datos
+c:\users\emlv_\documents\casanavidad\casanavidad\texture.cpp(101): warning C4267: '=': conversión de 'size_t' a 'unsigned long'; posible pérdida de datos
+c:\users\emlv_\documents\casanavidad\casanavidad\texture.cpp(121): warning C4267: '=': conversión de 'size_t' a 'unsigned long'; posible pérdida de datos
+c:\users\emlv_\documents\casanavidad\casanavidad\texture.cpp(140): warning C4267: '=': conversión de 'size_t' a 'unsigned long'; posible pérdida de datos
+  Generando código...
+casa.obj : error LNK2019: símbolo externo __imp___glutInitWithExit sin resolver al que se hace referencia en la función glutInit_ATEXIT_HACK
+casa.obj : error LNK2019: símbolo externo __imp_glutInitDisplayMode sin resolver al que se hace referencia en la función main
+casa.obj : error LNK2019: símbolo externo __imp_glutInitWindowPosition sin resolver al que se hace referencia en la función main
+casa.obj : error LNK2019: símbolo externo __imp_glutInitWindowSize sin resolver al que se hace referencia en la función main
+casa.obj : error LNK2019: símbolo externo __imp_glutMainLoop sin resolver al que se hace referencia en la función main
+casa.obj : error LNK2019: símbolo externo __imp___glutCreateWindowWithExit sin resolver al que se hace referencia en la función glutCreateWindow_ATEXIT_HACK
+casa.obj : error LNK2019: símbolo externo __imp_glutPostRedisplay sin resolver al que se hace referencia en la función "void __cdecl animacion(void)" (?animacion@@YAXXZ)
+casa.obj : error LNK2019: símbolo externo __imp_glutSwapBuffers sin resolver al que se hace referencia en la función "void __cdecl display(void)" (?display@@YAXXZ)
+casa.obj : error LNK2019: símbolo externo __imp_glutDisplayFunc sin resolver al que se hace referencia en la función main
+casa.obj : error LNK2019: símbolo externo __imp_glutReshapeFunc sin resolver al que se hace referencia en la función main
+casa.obj : error LNK2019: símbolo externo __imp_glutKeyboardFunc sin resolver al que se hace referencia en la función main
+casa.obj : error LNK2019: símbolo externo __imp_glutIdleFunc sin resolver al que se hace referencia en la función main
+casa.obj : error LNK2019: símbolo externo __imp_glutSpecialFunc sin resolver al que se hace referencia en la función main
+casa.obj : error LNK2019: símbolo externo __imp_glutBitmapCharacter sin resolver al que se hace referencia en la función "void __cdecl renderBitmapCharacter(float,float,float,void *,char *)" (?renderBitmapCharacter@@YAXMMMPEAXPEAD@Z)
+casa.obj : error LNK2019: símbolo externo __imp_glutSolidSphere sin resolver al que se hace referencia en la función "void __cdecl esfera(void)" (?esfera@@YAXXZ)
+casa.obj : error LNK2019: símbolo externo __imp_glutSolidCone sin resolver al que se hace referencia en la función "void __cdecl cono2(unsigned int)" (?cono2@@YAXI@Z)
+casa.obj : error LNK2019: símbolo externo "public: void __cdecl CCamera::Rotate_View(float)" (?Rotate_View@CCamera@@QEAAXM@Z) sin resolver al que se hace referencia en la función "void __cdecl arrow_keys(int,int,int)" (?arrow_keys@@YAXHHH@Z)
+casa.obj : error LNK2019: símbolo externo "public: void __cdecl CCamera::UpDown_Camera(float)" (?UpDown_Camera@CCamera@@QEAAXM@Z) sin resolver al que se hace referencia en la función "void __cdecl arrow_keys(int,int,int)" (?arrow_keys@@YAXHHH@Z)
+casa.obj : error LNK2019: símbolo externo "public: void __cdecl CCamera::Position_Camera(float,float,float,float,float,float,float,float,float)" (?Position_Camera@CCamera@@QEAAXMMMMMMMMM@Z) sin resolver al que se hace referencia en la función "void __cdecl InitGL(void)" (?InitGL@@YAXXZ)
+lib\glut32.lib : warning LNK4272: el tipo de máquina de biblioteca 'x86' está en conflicto con el tipo de máquina de destino 'x64'
+C:\Users\emlv_\Documents\CasaNavidad\x64\Debug\CasaNavidad.exe : fatal error LNK1120: 19 externos sin resolver

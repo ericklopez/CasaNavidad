@@ -8,6 +8,7 @@
 #include "texture.h"
 #include <MMSystem.h>
 //#include "cmodel/CModel.h"
+#include "Camera.h"
 
 //luces
 float angleX = 0.0f;
@@ -25,6 +26,15 @@ bool	positional = true;
 
 static int spin = 0;
 
+//Camaras
+
+GLfloat g_lookupdown = 0.0f;    // Look Position In The Z-Axis (NEW) 
+CCamera objCamera;										// CAMARA NORMAL
+CCamera objCamera2;										// CAMARA 1
+CCamera objCamera3;										// CAMARA 2
+bool mover_camara = true;
+float camPosX, camPosY, camPosZ, camViewX, camViewY, camViewZ, camUpX, camUpY, camUpZ; // PARA MOVER LA CÁMARA
+
 
 GLfloat LightAmbient[] = { 0.0f, 0.0f, 0.0f, 1.0f }; 			// Ambient Light Values
 GLfloat LightDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };				// Diffuse Light Values
@@ -40,7 +50,8 @@ GLfloat mat_shininess[] = { 100.0 };							// 1 to greatest
 // fin luces
 
 
-float pos_camX = 0, pos_camY = 0, pos_camZ = -5;
+float pos_camX = 0, pos_camY = 0, pos_camZ = -2;
+float pos_camX2 = -9, pos_camY2 = -2, pos_camZ2 = -5;
 int eye_camX = 0, eye_camY = 0.0, eye_camZ = 0;
 
 float text_der = 1.0;
@@ -66,6 +77,9 @@ CTexture t_noche;
 CTexture t_copos;
 CTexture t_tallo;
 CTexture t_hojas;
+CTexture t_pinata;
+CTexture t_nochebuena;
+CTexture t_corona;
 
 //CModel estrella;
 //CModel corona;
@@ -167,8 +181,25 @@ void InitGL(GLvoid)     // Inicializamos parametros
 	t_hojas.BuildGLTexture();
 	t_hojas.ReleaseImage();
 
+	t_pinata.LoadTGA("img/pinata.tga");
+	t_pinata.BuildGLTexture();
+	t_pinata.ReleaseImage();
+
+	t_nochebuena.LoadTGA("img/nochebuena.tga");
+	t_nochebuena.BuildGLTexture();
+	t_nochebuena.ReleaseImage();
+
+	t_corona.LoadTGA("img/corona.tga");
+	t_corona.BuildGLTexture();
+	t_corona.ReleaseImage();
+
 	//corona._3dsLoad("corona.3ds");
 
+	// CAMARAS
+
+	objCamera.Position_Camera(10.0f, 0.0f, -7, -30.0, 0.0, -1, 0, 1, -0.01);// POSICION DE LA CAMARA 1 ( NORMAL )
+	objCamera2.Position_Camera(-12, -2.1f, -9, -30.4, 0.1f, -44.5, 0, 1, -0.01);// POSICION DE LA CAMARA 2 ( CUARTO 1 )
+	objCamera3.Position_Camera(3, -2.4f, -15, 41.8, -2.9f, -123.0, 0, 1, -0.01);// POSICION DE LA CAMARA 3 ( CUARTO 2 )
 
 }
 void renderBitmapCharacter(float x, float y, float z, void *font, char *string)
@@ -525,7 +556,19 @@ void esfera(void) {
 	glPushMatrix();
 	glTranslatef(0.0, -0.31, -1.0);
 	glRotatef(90, 0, 0, 1);
-	glScalef(9.0, 9.0, 9.0);
+	glScalef(9.0,9.0, 9.0);
+	//glColor3f(1.0, 0.0, 0.0);
+	glutSolidSphere(0.065, 15, 30);
+	glPopMatrix();
+}
+void esferapinata(void) {
+
+	//Dibujar una esfera sólida
+
+	glPushMatrix();
+	glTranslatef(0.0, -0.31, -1.0);
+	glRotatef(90, 0, 0, 1);
+	glScalef(1.0, 1.0, 1.0);
 	//glColor3f(1.0, 0.0, 0.0);
 	glutSolidSphere(0.065, 15, 30);
 	glPopMatrix();
@@ -863,7 +906,11 @@ void arbol() {
 }
 void pinata(GLuint textura1, GLuint taxtura2) {
 	//primero se va a dibujarla esfera de la piñata
+	glBindTexture(GL_TEXTURE,textura1);
 	glTranslatef(0, 0, 0);
+	glScalef(1,1,1);
+	esferapinata();
+
 	
 }
 void coposVolador(GLuint textura1) {
@@ -894,6 +941,18 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glLoadIdentity();
+
+	if (mover_camara) {
+		camPosX = objCamera.mPos.x; camPosY = objCamera.mPos.y; camPosZ = objCamera.mPos.z;
+		camViewX = objCamera.mView.x; camViewY = objCamera.mView.y; camViewZ = objCamera.mView.z;
+		camUpX = objCamera.mUp.x; camUpY = objCamera.mUp.y; camUpZ = objCamera.mUp.z; // POSICION INICIAL DE LA CAMARA
+	}
+
+	gluLookAt(camPosX, camPosY, camPosZ, //	INICIA VIENDO A LA CAMARA 1
+		camViewX, camViewY, camViewZ,
+		camUpX, camUpY, camUpZ);
+
+	glRotatef(g_lookupdown, 0, 1, 0);
 
 
 	glPushMatrix();
@@ -969,7 +1028,7 @@ void display(void)   // Creamos la funcion donde se dibuja
 	muneco();
 	glPopMatrix();
 
-	glTranslatef(-1, -4.0, -12);
+	glTranslatef(-1, -4.0, -18);
 	glPushMatrix();
 	glTranslatef(-1, 0.9, 0);
 	glScalef(1, 1, 1);
@@ -978,7 +1037,111 @@ void display(void)   // Creamos la funcion donde se dibuja
 
 	glPopMatrix();//fin de cosas de adentro de la casa
 
+	//esferas
+	glPushMatrix();
+	glTranslatef(-10.95, -5, -20.5);
+	glScalef(-2, -2, -2);
+	glColor3f(1, 0, 0);
+	esferapinata();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(-10,-5,-20);
+	glScalef(-2, -2, -2);
+	glColor3f(1, 0, 0);
+	esferapinata();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(-10.5, -5, -20.1);
+	glScalef(-2, -2, -2);
+	glColor3f(1, 0, 0);
+	esferapinata();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(-9.5, -5, -20.1);
+	glScalef(-2, -2, -2);
+	glColor3f(1, 0, 0);
+	esferapinata();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(-9, -5, -20.5);
+	glScalef(-2, -2, -2);
+	glColor3f(1, 0, 0);
+	esferapinata();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslatef(-8.95, -5, -21);
+	glScalef(-2, -2, -2);
+	glColor3f(1, 0, 0);
+	esferapinata();
+	glPopMatrix();
+
 	casa();
+
+	//nochebuenas
+	glPushMatrix();
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.1);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glTranslatef(-7, -5.4, -20);
+	glScalef(1, 1, 0);
+	glColor3f(1, 1, 1);
+	glRotatef(270, 0, 0, 1);
+	phantom(t_nochebuena.GLindex);
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+	glPopMatrix();
+
+	glPushMatrix();
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.1);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glTranslatef(-5, -5.4, -20);
+	glScalef(1, 1, 0);
+	glColor3f(1, 1, 1);
+	glRotatef(270, 0, 0, 1);
+	phantom(t_nochebuena.GLindex);
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+	glPopMatrix();
+
+	glPushMatrix();
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.1);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glTranslatef(-9, -5.4, -20);
+	glScalef(1, 1, 0);
+	glColor3f(1, 1, 1);
+	glRotatef(270, 0, 0, 1);
+	phantom(t_nochebuena.GLindex);
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+	glPopMatrix();
+
+	glPushMatrix();
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.1);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	pinata(t_pinata.GLindex,t_pinata.GLindex);
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+	glPopMatrix();
+
+	//corona
+	glPushMatrix();
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.1);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glTranslatef(-6, -3, -9.499);
+	glRotatef(270, 0, 0, 1);
+	phantom(t_corona.GLindex);
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+	glPopMatrix();
 
 	glPushMatrix();//para mover el arbol adentro de la casa
 	glTranslatef(-5, 0, -10);
@@ -1163,6 +1326,26 @@ void keyboard(unsigned char key, int x, int y)  // Create Keyboard Function
 		break;
 
 
+	case '1':
+		camPosX = objCamera2.mPos.x; camPosY = objCamera2.mPos.y; camPosZ = objCamera2.mPos.z;
+		camViewX = objCamera2.mView.x; camViewY = objCamera2.mView.y; camViewZ = objCamera2.mView.z;
+		camUpX = objCamera2.mUp.x; camUpY = objCamera2.mUp.y; camUpZ = objCamera2.mUp.z;
+		mover_camara = false;
+		break;
+
+	case '2':
+		camPosX = objCamera.mPos.x; camPosY = objCamera.mPos.y; camPosZ = objCamera.mPos.z;
+		camViewX = objCamera.mView.x; camViewY = objCamera.mView.y; camViewZ = objCamera.mView.z;
+		camUpX = objCamera.mUp.x; camUpY = objCamera.mUp.y; camUpZ = objCamera.mUp.z;
+		mover_camara = true;
+		break;
+
+	case '3':
+		camPosX = objCamera3.mPos.x; camPosY = objCamera3.mPos.y; camPosZ = objCamera3.mPos.z;
+		camViewX = objCamera3.mView.x; camViewY = objCamera3.mView.y; camViewZ = objCamera3.mView.z;
+		camUpX = objCamera3.mUp.x; camUpY = objCamera3.mUp.y; camUpZ = objCamera3.mUp.z;
+		mover_camara = false;
+		break;
 	case 27:        // Cuando Esc es presionado...
 		exit(0);   // Salimos del programa
 		break;
@@ -1176,31 +1359,30 @@ void arrow_keys(int a_keys, int x, int y)  // Funcion para manejo de teclas espe
 {
 	switch (a_keys) {
 	case GLUT_KEY_PAGE_UP:
-		pos_camY -= 0.1f;
-		//eye_camY += 0.5f;
+		if (mover_camara)
+			objCamera.UpDown_Camera(CAMERASPEED);
 		break;
 
 	case GLUT_KEY_PAGE_DOWN:
-		pos_camY += 0.1f;
-		//eye_camY -= 0.5f;
+		if (mover_camara)
+			objCamera.UpDown_Camera(-CAMERASPEED);
 		break;
 
 	case GLUT_KEY_UP:     // Presionamos tecla ARRIBA...
-		eye_camX = (eye_camX - 1) % 360;
+		g_lookupdown -= 1.0f;
 		break;
 
 	case GLUT_KEY_DOWN:               // Presionamos tecla ABAJO...
-		eye_camX = (eye_camX + 1) % 360;
+		g_lookupdown += 1.0f;
 		break;
 
 	case GLUT_KEY_LEFT:
-		eye_camY = (eye_camY - 1) % 360;
+		if (mover_camara)
+			objCamera.Rotate_View(-CAMERASPEED);
 		break;
-
 	case GLUT_KEY_RIGHT:
-		eye_camY = (eye_camY + 1) % 360;
-		break;
-	default:
+		if (mover_camara)
+			objCamera.Rotate_View(CAMERASPEED);
 		break;
 	}
 	glutPostRedisplay();
