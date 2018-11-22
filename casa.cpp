@@ -63,6 +63,8 @@ CTexture t_pasto;
 CTexture t_fondo;
 CTexture t_noche;
 CTexture t_copos;
+CTexture t_tallo;
+CTexture t_hojas;
 
 int rot2, rot3, rot4, rot5, rot6, rot7, rot8, rot9, rot10, rot11, rot12;
 
@@ -152,6 +154,14 @@ void InitGL(GLvoid)     // Inicializamos parametros
 	t_copos.LoadTGA("img/copos.tga");
 	t_copos.BuildGLTexture();
 	t_copos.ReleaseImage();
+
+	t_tallo.LoadTGA("img/tallo.tga");
+	t_tallo.BuildGLTexture();
+	t_tallo.ReleaseImage();
+
+	t_hojas.LoadTGA("img/hojas.tga");
+	t_hojas.BuildGLTexture();
+	t_hojas.ReleaseImage();
 
 }
 void renderBitmapCharacter(float x, float y, float z, void *font, char *string)
@@ -493,6 +503,14 @@ glPushMatrix();
 glScalef(0.7, 0.7, 0.7);
 glutSolidCone(0.8, 0.3, 15, 15);
 glPopMatrix();}
+void cono2(GLuint textura1) {
+
+	glBindTexture(GL_TEXTURE_2D, textura1);   // choose the texture to use.
+	glPushMatrix();
+	glScalef(0.7, 0.7, 0.7);
+	glutSolidCone(0.8, 1, 15, 15);
+	glPopMatrix();
+}
 void esfera(void) {
 
 	//Dibujar una esfera sólida
@@ -774,12 +792,67 @@ void casa() {
 }
 void arbol() {
 	//comienza el arbol
-	glPushMatrix();//push tallo
-	glTranslatef(-5, -5, -9);
-	glColor3f(0.647059, 0.164706, 0.164706);
-	glScalef(0.25,1.5,0.25);
-	prisma(t_fachada.GLindex, t_techo.GLindex);
-	glPopMatrix();//pop tallo
+	glPushMatrix();//cuerpo general del arbol
+		glPushMatrix();//push tallo
+		glTranslatef(-5, -5, -9);
+		glScalef(0.25,2,0.25);
+		prisma(t_tallo.GLindex, t_tallo.GLindex);
+		glPopMatrix();//pop tallo
+		glPushMatrix();//primer nivel de hojas
+		glTranslatef(-5,-4.5,-9);
+		glScalef(2,0.8,2);
+		glRotatef(270, 1, 0, 0);
+		cono2(t_hojas.GLindex);
+		glPopMatrix();//fin prmer niel
+		glPushMatrix();//segundo nivel
+		glTranslatef(-5, -4.3, -9);
+		glScalef(1.8, 0.8, 1.8);
+		glRotatef(270, 1, 0, 0);
+		cono2(t_hojas.GLindex);
+		glPopMatrix();
+		glPushMatrix();//tercer nivel
+		glTranslatef(-5, -4.1, -9);
+		glScalef(1.65, 0.8, 1.65);
+		glRotatef(270, 1, 0, 0);
+		cono2(t_hojas.GLindex);
+		glPopMatrix();
+		glPushMatrix();//cuarto nivel
+		glTranslatef(-5, -3.9, -9);
+		glScalef(1.5, 1, 1.5);
+		glRotatef(270, 1, 0, 0);
+		cono2(t_hojas.GLindex);
+		glPopMatrix();
+		glPushMatrix();//quinto nivel
+		glTranslatef(-5, -3.7, -9);
+		glScalef(1.35, 1, 1.35);
+		glRotatef(270, 1, 0, 0);
+		cono2(t_hojas.GLindex);
+		glPopMatrix();
+		glPushMatrix();//sexto nivel
+		glTranslatef(-5, -3.5, -9);
+		glScalef(1.2, 1, 1.2);
+		glRotatef(270, 1, 0, 0);
+		cono2(t_hojas.GLindex);
+		glPopMatrix();
+		glPushMatrix();//septimo nivel
+		glTranslatef(-5, -3.3, -9);
+		glScalef(1.05, 1, 1.05);
+		glRotatef(270, 1, 0, 0);
+		cono2(t_hojas.GLindex);
+		glPopMatrix();
+		glPushMatrix();//octavo nivel
+		glTranslatef(-5, -3.1, -9);
+		glScalef(0.9, 1, 0.9);
+		glRotatef(270, 1, 0, 0);
+		cono2(t_hojas.GLindex);
+		glPopMatrix();
+		glPushMatrix();//noveno nivel
+		glTranslatef(-5, -2.9, -9);
+		glScalef(0.75, 1, 0.75);
+		glRotatef(270, 1, 0, 0);
+		cono2(t_hojas.GLindex);
+		glPopMatrix();
+	glPopMatrix();//fin cuerpo arbol
 }
 void coposVolador(GLuint textura1) {
 	GLfloat vertice[8][3] = {
@@ -864,7 +937,7 @@ void display(void)   // Creamos la funcion donde se dibuja
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(0.0, 0.0, -10.0);
+	glTranslatef(0.0, 0.0, -18.0);
 	glScalef(39, 39, 39);
 	phantom(t_copos.GLindex);
 	glPopMatrix();
@@ -895,7 +968,10 @@ void display(void)   // Creamos la funcion donde se dibuja
 
 	casa();
 
+	glPushMatrix();//para mover el arbol adentro de la casa
+	glTranslatef(-5, 0, -10);
 	arbol();
+	glPopMatrix();
 
 	glPopMatrix();
 
