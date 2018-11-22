@@ -62,6 +62,7 @@ CTexture t_holandes;
 CTexture t_pasto;
 CTexture t_fondo;
 CTexture t_noche;
+CTexture t_copos;
 
 int rot2, rot3, rot4, rot5, rot6, rot7, rot8, rot9, rot10, rot11, rot12;
 
@@ -147,6 +148,10 @@ void InitGL(GLvoid)     // Inicializamos parametros
 	t_noche.LoadTGA("img/noche.tga");
 	t_noche.BuildGLTexture();
 	t_noche.ReleaseImage();
+
+	t_copos.LoadTGA("img/copos.tga");
+	t_copos.BuildGLTexture();
+	t_copos.ReleaseImage();
 
 }
 void renderBitmapCharacter(float x, float y, float z, void *font, char *string)
@@ -359,59 +364,6 @@ void cono(GLuint textura1) {
 
 
 }
-void pz(GLuint textura1)  //Funcion creacion prisma
-{
-
-	GLfloat vertice[8][3] = {
-		{ 0.2 ,-0.2, 0.2 },    //Coordenadas Vértice 0 V0
-	{ -0.2 ,-0.2, 0.2 },    //Coordenadas Vértice 1 V1
-	{ -0.2 ,-0.2, -0.2 },    //Coordenadas Vértice 2 V2
-	{ 0.2 ,-0.2, -0.2 },    //Coordenadas Vértice 3 V3
-	{ 0.07,0.07, 0.07 },    //Coordenadas Vértice 4 V4
-	{ 0.07 ,0.07, -0.07 },    //Coordenadas Vértice 5 V5
-	{ -0.07 ,0.07, -0.07 },    //Coordenadas Vértice 6 V6
-	{ -0.07 ,0.07, 0.07 },    //Coordenadas Vértice 7 V7
-	};
-
-	glBindTexture(GL_TEXTURE_2D, textura1);   // choose the texture to use.
-	glBegin(GL_POLYGON);  //Top
-						  //glColor3f(0.8,0.2,0.4);
-	glTranslatef(2.0, 0, 0);
-	glColor3f(1.0, 1.0, 1.0);
-	glNormal3f(0.0f, 1.0f, 0.0f);
-	glTexCoord2f(1.0, 0.0f); glVertex3fv(vertice[4]);
-	glTexCoord2f(1.0, 1.0f); glVertex3fv(vertice[5]);
-	glTexCoord2f(0.0, 1.0f); glVertex3fv(vertice[6]);
-	glTexCoord2f(0.0f, 0.0f); glVertex3fv(vertice[7]);
-	glEnd();
-}
-void tb(GLuint textura1)  //Funcion creacion prisma
-{
-
-	GLfloat vertice[8][3] = {
-		{ 0.4 ,-0.4, 0.4 },    //Coordenadas Vértice 0 V0
-	{ -0.4 ,-0.4, 0.4 },    //Coordenadas Vértice 1 V1
-	{ -0.4 ,-0.4, -0.4 },    //Coordenadas Vértice 2 V2
-	{ 0.4 ,-0.4, -0.4 },    //Coordenadas Vértice 3 V3
-	{ 0.07,0.07, 0.07 },    //Coordenadas Vértice 4 V4
-	{ 0.07 ,0.07, -0.07 },    //Coordenadas Vértice 5 V5
-	{ -0.07 ,0.07, -0.07 },    //Coordenadas Vértice 6 V6
-	{ -0.07 ,0.07, 0.07 },    //Coordenadas Vértice 7 V7
-	};
-
-
-	glBindTexture(GL_TEXTURE_2D, textura1);   // choose the texture to use.
-	glBegin(GL_POLYGON);  //Bottom
-
-						  //glColor3f(0.4,0.2,0.6);
-	glNormal3f(0.0f, -1.0f, 0.0f);
-	glTexCoord2f(0.0f, 0.0f); glVertex3fv(vertice[0]);
-	glTexCoord2f(1.0f, 0.0f); glVertex3fv(vertice[1]);
-	glTexCoord2f(1.0f, 1.0f); glVertex3fv(vertice[2]);
-	glTexCoord2f(0.0f, 1.0f); glVertex3fv(vertice[3]);
-	glEnd();
-
-}
 void phantom(GLuint textura1)  //Funcion creacion prisma
 {
 
@@ -426,29 +378,6 @@ void phantom(GLuint textura1)  //Funcion creacion prisma
 	{ -0.5 ,0.5, 0.5 },    //Coordenadas Vértice 7 V7
 	};
 
-
-	glBindTexture(GL_TEXTURE_2D, textura1);   // choose the texture to use.
-	glBegin(GL_POLYGON);	//Front
-							//glColor3f(0.0,0.0,1.0);
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f); glVertex3fv(vertice[0]);
-	glTexCoord2f(1.0f, 0.0f); glVertex3fv(vertice[4]);
-	glTexCoord2f(1.0f, 1.0f); glVertex3fv(vertice[7]);
-	glTexCoord2f(0.0f, 1.0f); glVertex3fv(vertice[1]);
-	glEnd();
-
-}
-void HolandesVolador(GLuint textura1) {
-	GLfloat vertice[8][3] = {
-		{ 0.5 ,-0.5, 0.5 },    //Coordenadas Vértice 0 V0
-		{ -0.5 ,-0.5, 0.5 },    //Coordenadas Vértice 1 V1
-		{ -0.5 ,-0.5, -0.5 },    //Coordenadas Vértice 2 V2
-		{ 0.5 ,-0.5, -0.5 },    //Coordenadas Vértice 3 V3
-		{ 0.5 ,0.5, 0.5 },    //Coordenadas Vértice 4 V4
-		{ 0.5 ,0.5, -0.5 },    //Coordenadas Vértice 5 V5
-		{ -0.5 ,0.5, -0.5 },    //Coordenadas Vértice 6 V6
-		{ -0.5 ,0.5, 0.5 },    //Coordenadas Vértice 7 V7
-	};
 
 	glBindTexture(GL_TEXTURE_2D, textura1);   // choose the texture to use.
 	glBegin(GL_POLYGON);	//Front
@@ -484,7 +413,7 @@ void pasto(GLuint textura1) {
 	glEnd();
 }
 void MusicaChida() {
-	PlaySound(TEXT("halloween.wav"), NULL, SND_ASYNC | SND_LOOP);
+	PlaySound(TEXT("navidad.wav"), NULL, SND_ASYNC | SND_LOOP);
 }
 void fondo(GLuint textura1, GLuint textura2, GLuint textura3) {
 
@@ -559,29 +488,6 @@ void fondo(GLuint textura1, GLuint textura2, GLuint textura3) {
 	glTexCoord2f(0.0f, 0.0f); glVertex3fv(vertice[7]);
 	glEnd();
 }
-void bruja(GLuint textura1) {
-	GLfloat vertice[8][3] = {
-		{ 0.5 ,-0.5, 0.5 },    //Coordenadas Vértice 0 V0
-		{ -0.5 ,-0.5, 0.5 },    //Coordenadas Vértice 1 V1
-		{ -0.5 ,-0.5, -0.5 },    //Coordenadas Vértice 2 V2
-		{ 0.5 ,-0.5, -0.5 },    //Coordenadas Vértice 3 V3
-		{ 0.5 ,0.5, 0.5 },    //Coordenadas Vértice 4 V4
-		{ 0.5 ,0.5, -0.5 },    //Coordenadas Vértice 5 V5
-		{ -0.5 ,0.5, -0.5 },    //Coordenadas Vértice 6 V6
-		{ -0.5 ,0.5, 0.5 },    //Coordenadas Vértice 7 V7
-	};
-
-
-	glBindTexture(GL_TEXTURE_2D, textura1);   // choose the texture to use.
-	glBegin(GL_POLYGON);	//Front
-							//glColor3f(0.0,0.0,1.0);
-	glNormal3f(0.0f, 0.0f, 1.0f);
-	glTexCoord2f(0.0f, 0.0f); glVertex3fv(vertice[0]);
-	glTexCoord2f(1.0f, 0.0f); glVertex3fv(vertice[4]);
-	glTexCoord2f(1.0f, 1.0f); glVertex3fv(vertice[7]);
-	glTexCoord2f(0.0f, 1.0f); glVertex3fv(vertice[1]);
-	glEnd();
-}
 void cono(void){
 glPushMatrix();
 glScalef(0.7, 0.7, 0.7);
@@ -611,8 +517,7 @@ void cilindro(void) {
 	gluCylinder(quadratic, 0.35f, 0.35f, 0.95f, 50, 50);
 	glPopMatrix();
 }
-void monito()
-{
+void monito(){
 	//glNewList(1, GL_COMPILE);
 	glPushMatrix();//Pecho
 	glScalef(0.5, 0.5, 0.5);
@@ -721,11 +626,17 @@ void monito()
 }
 void muneco() {
 	glPushMatrix();
+	glColor3f(0.0, 0.0, 0.0);
+	glScalef(1.0, 0.4, 1.0);
+	glTranslatef(0.0, 1.4, 0.0);
+	cilindro();
+	glPopMatrix();
+	glPushMatrix();
 	glColor3f(1.0, 1.0, 1.0);
 	esfera();
-	glScalef(0.09,0.09,2.5);
+	glScalef(0.09, 0.09, 2.5);
 	glColor3f(1.0, 0.5, 0.0);
-	glTranslatef(0.0,-2.52,-0.2);
+	glTranslatef(0.0, -2.52, -0.2);
 	cono();
 	glColor3f(0.0, 0.0, 0.0);
 	glScalef(2.0, 2.0, 0.05);
@@ -734,11 +645,23 @@ void muneco() {
 	glTranslatef(-1.5, 0.0, 0.0);
 	cono();
 	glPopMatrix();
+
 	glPushMatrix();
 	glTranslatef(0.0, -1.0, 1.0);
-	glScalef(2,2,2);
+
+	glPushMatrix();
+	glScalef(0.09, 0.09, 0.05);
+	glTranslatef(-2.0, -2.0, -18.5);
+	glColor3f(0.0, 0.0, 0.0);
+	cono();
+	glTranslatef(0.0, -2.0, 1.0);
+	glColor3f(0.0, 0.0, 0.0);
+	cono();
+	glPopMatrix();
+	glScalef(2, 2, 2);
 	glColor3f(1.0, 1.0, 1.0);
 	esfera();
+
 	glPopMatrix();
 }
 void casa() {
@@ -836,6 +759,12 @@ void casa() {
 	prisma(t_piso.GLindex, t_fachada.GLindex);
 	glPopMatrix();
 
+	glPushMatrix();//piso
+	glTranslatef(-4,-6,-15);
+	glScalef(16,0.1,12);
+	prisma(t_piso.GLindex, t_fachada.GLindex);
+	glPopMatrix();//fin piso
+
 	glPushMatrix();//inicio techo
 	glTranslatef(-12, -1.999, -9);
 	glColor3f(1.0, 1.0, 1.0);
@@ -843,7 +772,38 @@ void casa() {
 	techo(t_techo.GLindex);
 	glPopMatrix();//fin techo
 }
+void arbol() {
+	//comienza el arbol
+	glPushMatrix();//push tallo
+	glTranslatef(-5, -5, -9);
+	glColor3f(0.647059, 0.164706, 0.164706);
+	glScalef(0.25,1.5,0.25);
+	prisma(t_fachada.GLindex, t_techo.GLindex);
+	glPopMatrix();//pop tallo
+}
+void coposVolador(GLuint textura1) {
+	GLfloat vertice[8][3] = {
+		{ 0.5 ,-0.5, 0.5 },    //Coordenadas Vértice 0 V0
+		{ -0.5 ,-0.5, 0.5 },    //Coordenadas Vértice 1 V1
+		{ -0.5 ,-0.5, -0.5 },    //Coordenadas Vértice 2 V2
+		{ 0.5 ,-0.5, -0.5 },    //Coordenadas Vértice 3 V3
+		{ 0.5 ,0.5, 0.5 },    //Coordenadas Vértice 4 V4
+		{ 0.5 ,0.5, -0.5 },    //Coordenadas Vértice 5 V5
+		{ -0.5 ,0.5, -0.5 },    //Coordenadas Vértice 6 V6
+		{ -0.5 ,0.5, 0.5 },    //Coordenadas Vértice 7 V7
+	};
 
+	glBindTexture(GL_TEXTURE_2D, textura1);   // choose the texture to use.
+	glBegin(GL_POLYGON);	//Front
+							//glColor3f(0.0,0.0,1.0);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3fv(vertice[0]);
+	glTexCoord2f(1.0f, 0.0f); glVertex3fv(vertice[4]);
+	glTexCoord2f(1.0f, 1.0f); glVertex3fv(vertice[7]);
+	glTexCoord2f(0.0f, 1.0f); glVertex3fv(vertice[1]);
+	glEnd();
+
+}
 void display(void)   // Creamos la funcion donde se dibuja
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -864,24 +824,79 @@ void display(void)   // Creamos la funcion donde se dibuja
 	fondo(t_pasto.GLindex, t_fondo.GLindex, t_noche.GLindex);
 	glPopMatrix();
 
+	//copos de nieve
 	glPushMatrix();
 
-	casa();
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.1);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
+	glPushMatrix();
+	glTranslatef(-4.0, 14.0, -17.0);
+	glRotatef(-90, 0, 0, 1);
+	glScalef(39, 39, 39);
+	phantom(t_copos.GLindex);
 	glPopMatrix();
 
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, -4.0);
+	glScalef(39, 39, 39);
+	phantom(t_copos.GLindex);
+	glPopMatrix();
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+	glPopMatrix();
 
+	//copos de nieve
+	glPushMatrix();
+
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.1);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glTranslatef(-4.0, 14.0, -26.0);
+	glPushMatrix();
+	glTranslatef(-4.0, 14.0, -26.0);
+	glRotatef(-90, 0, 0, 1);
+	glScalef(39, 39, 39);
+	phantom(t_copos.GLindex);
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, -10.0);
+	glScalef(39, 39, 39);
+	phantom(t_copos.GLindex);
+	glPopMatrix();
+	glDisable(GL_BLEND);
+	glDisable(GL_ALPHA_TEST);
+	glPopMatrix();//fin copos
+
+	glPushMatrix();//inicio casa
+
+	glPushMatrix();//cosas de adentro de la casa
+
+
+	glPushMatrix();
+	glTranslatef(2, -3.0, -6);
+	glScalef(1, 1, 1);
+	glTranslatef(movPez, 0.0, 0.0);
+	muneco();
+	glPopMatrix();
+
+	glTranslatef(-1, -4.0, -12);
 	glPushMatrix();
 	glTranslatef(-1, 0.9, 0);
 	glScalef(1, 1, 1);
 	monito();
 	glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(2, 0.9, 0);
-	glScalef(1, 1, 1);
-	muneco();
+	glPopMatrix();//fin de cosas de adentro de la casa
+
+	casa();
+
+	arbol();
+
 	glPopMatrix();
 
 	glPopMatrix();
