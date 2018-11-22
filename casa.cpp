@@ -7,6 +7,7 @@
 //************************************************************//
 #include "texture.h"
 #include <MMSystem.h>
+//#include "cmodel/CModel.h"
 
 //luces
 float angleX = 0.0f;
@@ -65,6 +66,9 @@ CTexture t_noche;
 CTexture t_copos;
 CTexture t_tallo;
 CTexture t_hojas;
+
+//CModel estrella;
+//CModel corona;
 
 int rot2, rot3, rot4, rot5, rot6, rot7, rot8, rot9, rot10, rot11, rot12;
 
@@ -162,6 +166,9 @@ void InitGL(GLvoid)     // Inicializamos parametros
 	t_hojas.LoadTGA("img/hojas.tga");
 	t_hojas.BuildGLTexture();
 	t_hojas.ReleaseImage();
+
+	//corona._3dsLoad("corona.3ds");
+
 
 }
 void renderBitmapCharacter(float x, float y, float z, void *font, char *string)
@@ -793,7 +800,7 @@ void casa() {
 void arbol() {
 	//comienza el arbol
 	glPushMatrix();//cuerpo general del arbol
-		glPushMatrix();//push tallo
+		glPushMatrix();//push tallo	
 		glTranslatef(-5, -5, -9);
 		glScalef(0.25,2,0.25);
 		prisma(t_tallo.GLindex, t_tallo.GLindex);
@@ -853,6 +860,11 @@ void arbol() {
 		cono2(t_hojas.GLindex);
 		glPopMatrix();
 	glPopMatrix();//fin cuerpo arbol
+}
+void pinata(GLuint textura1, GLuint taxtura2) {
+	//primero se va a dibujarla esfera de la piñata
+	glTranslatef(0, 0, 0);
+	
 }
 void coposVolador(GLuint textura1) {
 	GLfloat vertice[8][3] = {
