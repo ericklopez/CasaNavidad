@@ -114,37 +114,37 @@ void InitGL(GLvoid)     // Inicializamos parametros
 	//glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT1);
 
-	t_piso.LoadTGA("piso.tga");
+	t_piso.LoadTGA("img/piso.tga");
 	t_piso.BuildGLTexture();
 	t_piso.ReleaseImage();
 
 
-	t_fachada.LoadTGA("ladrillos.tga");
+	t_fachada.LoadTGA("img/ladrillos.tga");
 	t_fachada.BuildGLTexture();
 	t_fachada.ReleaseImage();
 
-	t_techo.LoadTGA("techo.tga");
+	t_techo.LoadTGA("img/techo.tga");
 	t_techo.BuildGLTexture();
 	t_techo.ReleaseImage();
 
-	t_puerta.LoadTGA("puerta.tga");
+	t_puerta.LoadTGA("img/puerta.tga");
 	t_puerta.BuildGLTexture();
 	t_puerta.ReleaseImage();
 
-	t_ventana.LoadTGA("ventana.tga");
+	t_ventana.LoadTGA("img/ventana.tga");
 	t_ventana.BuildGLTexture();
 	t_ventana.ReleaseImage();
 
 
-	t_pasto.LoadTGA("pasto.tga");
+	t_pasto.LoadTGA("img/pasto.tga");
 	t_pasto.BuildGLTexture();
 	t_pasto.ReleaseImage();
 
-	t_fondo.LoadTGA("fondo.tga");
+	t_fondo.LoadTGA("img/fondo.tga");
 	t_fondo.BuildGLTexture();
 	t_fondo.ReleaseImage();
 
-	t_noche.LoadTGA("noche.tga");
+	t_noche.LoadTGA("img/noche.tga");
 	t_noche.BuildGLTexture();
 	t_noche.ReleaseImage();
 
@@ -886,12 +886,6 @@ void display(void)   // Creamos la funcion donde se dibuja
 
 	glPopMatrix();
 
-	/*
-	glDisable(GL_TEXTURE_2D);
-	renderBitmapCharacter(-20, 15.5, -14, (void *)font, "Lopez Vite Erick");
-	renderBitmapCharacter(-20, 13.0, -14, (void *)font, "Pastrana Hernánez Adriana");
-	glEnable(GL_TEXTURE_2D);
-	*/
 
 	//MusicaChida();
 
